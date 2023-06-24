@@ -186,6 +186,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
         }
 	}
 
+
     if ( pid > 0 ) {
 		wait(&status);
         //printf("End of process %d: \n", pid);
