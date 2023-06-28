@@ -94,8 +94,8 @@ cp /home/vagrant/_code/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch6
 
 # TODO: Make device nodes
 
-sudo mknod -m 666 dev/null c 1 3
-sudo mknod -m 666 dev/console c 5 1
+# sudo mknod -m 666 dev/null c 1 3
+# sudo mknod -m 666 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
 
@@ -111,6 +111,10 @@ cp autorun-qemu.sh "${OUTDIR}/rootfs/home/"
 cp writer "${OUTDIR}/rootfs/home/"
 cp finder.sh "${OUTDIR}/rootfs/home/"
 cp finder-test.sh "${OUTDIR}/rootfs/home/"
+mkdir -p "${OUTDIR}"/rootfs/home/conf
+mkdir -p "${OUTDIR}"/rootfs/conf
+cp conf/username.txt "${OUTDIR}/rootfs/home/conf/"
+cp conf/assignment.txt "${OUTDIR}/rootfs/conf/"
 
 # TODO: Chown the root directory
 
