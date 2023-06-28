@@ -90,10 +90,14 @@ ${CROSS_COMPILE}readelf -a "${OUTDIR}/rootfs/bin/busybox" | grep "Shared library
 # TODO: Add library dependencies to rootfs
 
 echo "Copying dependency files"
-cp /home/vagrant/_code/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1 lib/ld-linux-aarch64.so.1
-cp /home/vagrant/_code/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libm.so.6 lib64/libm.so.6
-cp /home/vagrant/_code/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2 lib64/libresolv.so.2
-cp /home/vagrant/_code/gcc-arm-10.2-2020.11-x86_64-aarch64-none-linux-gnu/aarch64-none-linux-gnu/libc/lib64/libc.so.6 lib64/libc.so.6
+
+TOOLCHAINPATH=$(dirname `which "${CROSS_COMPILE}gcc"`)
+TOOLCHAINDIR=$(dirname $TOOLCHAINPATH)
+echo $TOOLCHAINDIR
+cp "${TOOLCHAINDIR}/aarch64-none-linux-gnu/libc/lib/ld-linux-aarch64.so.1" lib/ld-linux-aarch64.so.1
+cp "${TOOLCHAINDIR}/aarch64-none-linux-gnu/libc/lib64/libm.so.6" lib64/libm.so.6
+cp "${TOOLCHAINDIR}/aarch64-none-linux-gnu/libc/lib64/libresolv.so.2" lib64/libresolv.so.2
+cp "${TOOLCHAINDIR}/aarch64-none-linux-gnu/libc/lib64/libc.so.6" lib64/libc.so.6
 echo "Done Copying dependency files"
 
 # TODO: Make device nodes
