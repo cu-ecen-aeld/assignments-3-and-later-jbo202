@@ -5,7 +5,7 @@
 set -e
 set -u
 
-pwd
+test_dir=`pwd`
 
 OUTDIR=/tmp/aeld
 KERNEL_REPO=git://git.kernel.org/pub/scm/linux/kernel/git/stable/linux-stable.git
@@ -38,7 +38,7 @@ if [ ! -e ${OUTDIR}/linux-stable/arch/${ARCH}/boot/Image ]; then
 
     # TODO: Add your kernel build steps here
 
-    make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper
+    #make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} mrproper
     make ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} defconfig
     make -j4 ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} all
     #make  ARCH=${ARCH} CROSS_COMPILE=${CROSS_COMPILE} modules
@@ -109,9 +109,7 @@ sudo mknod -m 666 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
 
-pwd
-cd finder-app
-
+cd "${test_dir}"
 make clean
 CROSS_COMPILE=aarch64-none-linux-gnu- make
 
