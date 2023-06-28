@@ -107,7 +107,7 @@ sudo mknod -m 666 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
 
-cd /home/vagrant/_code/assignment-1-jbollineni/finder-app
+cd ../finder-app
 
 make clean
 CROSS_COMPILE=aarch64-none-linux-gnu- make
