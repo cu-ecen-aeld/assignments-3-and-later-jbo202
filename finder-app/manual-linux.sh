@@ -107,6 +107,7 @@ sudo mknod -m 666 dev/console c 5 1
 
 # TODO: Clean and build the writer utility
 
+pwd
 cd finder-app
 
 make clean
@@ -126,8 +127,7 @@ cp conf/assignment.txt "${OUTDIR}/rootfs/conf/"
 
 # TODO: Chown the root directory
 
-
-#chown root:root "${OUTDIR}/rootfs"
+sudo chown root:root "${OUTDIR}/rootfs"
 
 # TODO: Create initramfs.cpio.gz
 
