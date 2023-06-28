@@ -69,6 +69,7 @@ bool do_exec(int count, ...)
     // and may be removed
     //command[count] = command[count];
 
+    va_end(args);
 /*
  * TODO:
  *   Execute a system command by calling fork, execv(),
@@ -78,7 +79,7 @@ bool do_exec(int count, ...)
  *   as second argument to the execv() command.
  *
 */
-    int status;
+    
 
     //printf("Inside do_exec: command is %s & argu is %s\n", command[0], command[2]);
     fflush(stdout);
@@ -86,16 +87,21 @@ bool do_exec(int count, ...)
     if ( pid == 0 ) {
 
         int ret = execv(command[0], command);
-        perror("execv error: ");
+        //perror("execv error: ");
 
         if (ret == -1) {
+            exit(1);
             return false;
         }
 
-	}
-    if ( pid > 0 ) {
 
+	 }
+
+     int status;
         wait(&status);
+        
+    if ( pid > 0 ) {
+        
         //printf("End of process %d: \n", pid);
 
         //printf("wait exit status is %d\n",WIFEXITED(status));
@@ -104,13 +110,14 @@ bool do_exec(int count, ...)
             //printf("The process ended with exit(%d).\n", WEXITSTATUS(status));
             return true;
         } 
-        if (WEXITSTATUS(status) == 1) {
+        if (WEXITSTATUS(status) != 0) {
             //printf("The process ended with exit(%d).\n", WEXITSTATUS(status));
             return false;
         }
         if (WIFSIGNALED(status)) {
             //printf("The process ended with kill -%d.\n", WTERMSIG(status));
         }
+        return false;
     }
 
     if (pid < 0) {
@@ -118,7 +125,7 @@ bool do_exec(int count, ...)
         return false;
 
     }
-    va_end(args);
+    
 
     return true;
 }
@@ -157,7 +164,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
  *
 */
 
-    int status;
+    
 
     //printf("command is %s & argu is %s\n", command[0], command);
     fflush(stdout);
@@ -188,6 +195,7 @@ bool do_exec_redirect(const char *outputfile, int count, ...)
 
 
     if ( pid > 0 ) {
+        int status;
 		wait(&status);
         //printf("End of process %d: \n", pid);
 
