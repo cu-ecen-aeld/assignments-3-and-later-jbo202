@@ -57,11 +57,11 @@ fi
 for i in $( seq 1 $NUMFILES)
 do
 	#./writer.sh "$WRITEDIR/${username}$i.txt" "$WRITESTR"
-	./writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
+	"$(dirname `which finder-test.sh`)"/writer "$WRITEDIR/${username}$i.txt" "$WRITESTR"
 done
 
-OUTPUTSTRING=$(./finder.sh "$WRITEDIR" "$WRITESTR")
-./finder.sh "$WRITEDIR" "$WRITESTR" > /tmp/assignment4-result.txt
+OUTPUTSTRING=$("$(dirname `which finder-test.sh`)"/finder.sh "$WRITEDIR" "$WRITESTR")
+"$(dirname `which finder-test.sh`)"/finder.sh "$WRITEDIR" "$WRITESTR" > /tmp/assignment4-result.txt
 
 # remove temporary directories
 rm -rf /tmp/aeld-data
