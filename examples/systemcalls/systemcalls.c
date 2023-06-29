@@ -87,7 +87,7 @@ bool do_exec(int count, ...)
     if ( pid == 0 ) {
 
         int ret = execv(command[0], command);
-        //perror("execv error: ");
+        perror("execv error: ");
 
         if (ret == -1) {
             exit(1);
